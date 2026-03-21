@@ -2,7 +2,7 @@ const TodoData = (props) => {
   console.log("TodoData props: ", props);
 
   // Object destructuring
-  const { todoList } = props;
+  const { todoList, deleteTodo } = props;
 
   return (
     <div className="todo-data">
@@ -10,7 +10,12 @@ const TodoData = (props) => {
         return (
           <div className="todo-item" key={item.id}>
             <div>{item.name}</div>
-            <button>Delete</button>
+            <button
+              style={{ cursor: "pointer" }}
+              onClick={() => deleteTodo(item.id)}
+            >
+              Delete
+            </button>
           </div>
         );
       })}
