@@ -1,20 +1,34 @@
-import { Input, Button } from "antd";
+import { Input, Button, notification } from "antd";
 import { useState } from "react";
+import { createUserAPI } from "../../services/api.service";
 
 const UserForm = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const handleCreateUser = () => {
+  const handleCreateUser = async () => {
     // Handle user creation logic here
     console.log("Creating user with details:", {
       fullName,
       email,
       password,
-      phoneNumber,
+      phone,
     });
+
+    const res = await createUserAPI(fullName, email, password, phone);
+    if (res.data) {
+      notification.success({
+        message: "User Created",
+        description: `User ${res.data.fullName} created successfully!`,
+      });
+    } else {
+      notification.error({
+        message: "User Creation Failed",
+        description: JSON.stringify(res.message),
+      });
+    }
   };
 
   return (
@@ -50,8 +64,8 @@ const UserForm = () => {
           <span>Phone Number</span>
           <Input
             type="text"
-            value={phoneNumber}
-            onChange={(event) => setPhoneNumber(event.target.value)}
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
             placeholder="input Phone Number"
           />
         </div>
