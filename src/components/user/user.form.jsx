@@ -2,7 +2,9 @@ import { Input, Button, Modal, notification } from "antd";
 import { useState } from "react";
 import { createUserAPI } from "../../services/api.service";
 
-const UserForm = () => {
+const UserForm = (props) => {
+  const { loadUser } = props;
+
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,19 +19,22 @@ const UserForm = () => {
         message: "User Created",
         description: `User ${res.data.fullName} created successfully!`,
       });
-      setIsModalOpen(false);
-
-      // Clear form fields
-      setFullName("");
-      setEmail("");
-      setPassword("");
-      setPhone("");
+      resetAndCloseModal();
+      await loadUser();
     } else {
       notification.error({
         message: "User Creation Failed",
         description: JSON.stringify(res.message),
       });
     }
+  };
+
+  const resetAndCloseModal = () => {
+    setIsModalOpen(false);
+    setFullName("");
+    setEmail("");
+    setPassword("");
+    setPhone("");
   };
 
   return (
@@ -45,7 +50,7 @@ const UserForm = () => {
         okText="CREATE"
         open={isModalOpen}
         onOk={handleCreateUser}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={resetAndCloseModal}
         maskClosable={false}
       >
         <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
