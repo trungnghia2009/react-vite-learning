@@ -9,14 +9,6 @@ const UserForm = () => {
   const [phone, setPhone] = useState("");
 
   const handleCreateUser = async () => {
-    // Handle user creation logic here
-    console.log("Creating user with details:", {
-      fullName,
-      email,
-      password,
-      phone,
-    });
-
     const res = await createUserAPI(fullName, email, password, phone);
     if (res.data) {
       notification.success({
