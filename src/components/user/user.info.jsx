@@ -1,17 +1,19 @@
-import { Drawer } from "antd";
+import { Drawer, Button, notification } from "antd";
 import { useState } from "react";
+import { uploadAvatarAPI, updateUserAPI } from "../../services/api.service";
 
 const UserInfo = (props) => {
-  const { userInfo, setOpenDrawer, openDrawer } = props;
+  const { userInfo, setOpenDrawer, openDrawer, loadUser } = props;
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
 
   const onClose = () => {
     setOpenDrawer(false);
+    setPreview(null);
   };
 
-  const handleUploadAvatar = (event) => {
+  const handlePreviewAvatar = (event) => {
     // Check if a file was selected
     if (!event.target.files || event.target.files.length === 0) {
       selectedFile(null);
@@ -27,7 +29,40 @@ const UserInfo = (props) => {
     }
   };
 
-  console.log("Preview URL:", preview);
+  const handleUploadAvatar = async () => {
+    // Step 1: upload file
+    const resUpload = await uploadAvatarAPI(selectedFile, "avatar");
+    if (resUpload.data) {
+      const newAvatar = resUpload.data.fileUploaded;
+      // Step 2: update user with new avatar
+      const resUpdate = await updateUserAPI(
+        userInfo._id,
+        userInfo.fullName,
+        userInfo.phone,
+        newAvatar,
+      );
+      if (resUpdate.data) {
+        notification.success({
+          message: "Avatar Updated",
+          description: `User avatar updated successfully!`,
+        });
+        setPreview(null);
+        onClose();
+        await loadUser();
+      } else {
+        notification.error({
+          message: "User Update Failed",
+          description: JSON.stringify(resUpdate.message),
+        });
+      }
+    } else {
+      notification.error({
+        message: "Avatar Upload Failed",
+        description: JSON.stringify(resUpload.message),
+      });
+      return;
+    }
+  };
 
   return (
     <Drawer
@@ -69,6 +104,7 @@ const UserInfo = (props) => {
                 cursor: "pointer",
                 background: "orange",
                 borderRadius: "5px",
+                marginBottom: "10px",
               }}
             >
               Upload Avatar
@@ -77,23 +113,35 @@ const UserInfo = (props) => {
               type="file"
               hidden
               id="upload-btn"
-              onChange={handleUploadAvatar}
+              onChange={handlePreviewAvatar}
             />
           </div>
           {/* Preview of the uploaded avatar */}
           {preview && (
-            <div
-              style={{
-                width: "150px",
-                border: "1px solid #ccc",
-              }}
-            >
-              <img
-                style={{ height: "100%", width: "100%", objectFit: "contain" }}
-                src={preview}
-                alt="User Avatar"
-              />
-            </div>
+            <>
+              <div
+                style={{
+                  width: "150px",
+                }}
+              >
+                <img
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    objectFit: "contain",
+                  }}
+                  src={preview}
+                  alt="User Avatar"
+                />
+              </div>
+              <Button
+                type="primary"
+                style={{ width: "fit-content" }}
+                onClick={handleUploadAvatar}
+              >
+                Save
+              </Button>
+            </>
           )}
         </div>
       </div>

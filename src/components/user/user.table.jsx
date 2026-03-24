@@ -99,6 +99,7 @@ const UserTable = (props) => {
         userInfo={userInfo}
         setOpenDrawer={setOpenDrawer}
         openDrawer={openDrawer}
+        loadUser={loadUser}
       />
     </>
   );
