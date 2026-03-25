@@ -1,12 +1,38 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Row, Col, Divider } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Row,
+  Col,
+  Divider,
+  notification,
+  message,
+} from "antd";
 import { Link } from "react-router-dom";
+import { loginUserAPI } from "../services/api.service";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [form] = Form.useForm();
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log(">>> Check values: ", values);
+  const onFinish = async (values) => {
+    setIsLoading(true);
+    const res = await loginUserAPI(values.email, values.password);
+    setIsLoading(false);
+    if (res.data) {
+      message.success("Login successful!");
+      form.resetFields();
+      navigate("/"); // Redirect to home page after successful login
+    } else {
+      notification.error({
+        message: "Login Failed",
+        description: JSON.stringify(res.message),
+      });
+    }
   };
 
   return (
@@ -51,7 +77,7 @@ const LoginPage = () => {
                   alignItems: "center",
                 }}
               >
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" loading={isLoading}>
                   Login
                 </Button>
                 <Link to="/">Go to Home</Link>

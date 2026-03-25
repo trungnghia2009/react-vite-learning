@@ -38,8 +38,8 @@ const RegisterPage = () => {
       onFinish={onFinish}
     >
       <h3 style={{ textAlign: "center" }}>Register an account</h3>
-      <Row justify={"center"}>
-        <Col xs={24} md={8}>
+      <Row justify={"center"} style={{ marginTop: "30px" }}>
+        <Col xs={24} md={16} lg={8}>
           <Form.Item
             label="Full Name"
             name="fullName"
@@ -49,10 +49,7 @@ const RegisterPage = () => {
           >
             <Input />
           </Form.Item>
-        </Col>
-      </Row>
-      <Row justify={"center"}>
-        <Col xs={24} md={8}>
+
           <Form.Item
             label="Email"
             name="email"
@@ -60,10 +57,7 @@ const RegisterPage = () => {
           >
             <Input />
           </Form.Item>
-        </Col>
-      </Row>
-      <Row justify={"center"}>
-        <Col xs={24} md={8}>
+
           <Form.Item
             label="Password"
             name="password"
@@ -71,10 +65,7 @@ const RegisterPage = () => {
           >
             <Input.Password />
           </Form.Item>
-        </Col>
-      </Row>
-      <Row justify={"center"}>
-        <Col xs={24} md={8}>
+
           <Form.Item
             label="Phone Number"
             name="phone"
@@ -88,11 +79,7 @@ const RegisterPage = () => {
           >
             <Input />
           </Form.Item>
-        </Col>
-      </Row>
 
-      <Row justify={"center"}>
-        <Col xs={24} md={8}>
           <Button type="primary" htmlType="submit">
             Register
           </Button>
