@@ -6,7 +6,15 @@ import { useState } from "react";
 import { deleteUserAPI } from "../../services/api.service";
 
 const UserTable = (props) => {
-  const { userData, loadUser } = props;
+  const {
+    userData,
+    loadUser,
+    currentPage,
+    setCurrentPage,
+    pageSize,
+    setPageSize,
+    total,
+  } = props;
 
   // State for Update User Modal
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
@@ -32,7 +40,25 @@ const UserTable = (props) => {
     }
   };
 
+  const onPageChange = (pagination) => {
+    // Check if the page number has changed
+    // + converts string to number
+    if (+pagination?.current !== +currentPage) {
+      setCurrentPage(+pagination.current);
+    }
+    // Check if the page size has changed
+    // + converts string to number
+    if (+pagination?.pageSize !== +pageSize) {
+      setPageSize(+pagination.pageSize);
+      setCurrentPage(1);
+    }
+  };
+
   const columns = [
+    {
+      title: "No.",
+      render: (_, __, index) => index + 1 + (currentPage - 1) * pageSize,
+    },
     {
       title: "Id",
       dataIndex: "_id",
@@ -85,9 +111,29 @@ const UserTable = (props) => {
     },
   ];
 
+  console.log(">> Check currentPage: ", currentPage);
+
   return (
     <>
-      <Table columns={columns} dataSource={userData} rowKey={"_id"} />;
+      <Table
+        columns={columns}
+        dataSource={userData}
+        rowKey={"_id"}
+        pagination={{
+          current: currentPage,
+          pageSize: pageSize,
+          showSizeChanger: true,
+          total: total,
+          showTotal: (total, range) => {
+            return (
+              <div>
+                {range[0]}-{range[1]} of {total} rows
+              </div>
+            );
+          },
+        }}
+        onChange={onPageChange}
+      />
       <UpdateUser
         isModalUpdateOpen={isModalUpdateOpen}
         setIsModalUpdateOpen={setIsModalUpdateOpen}

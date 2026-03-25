@@ -43,8 +43,8 @@ const uploadAvatarAPI = (file, folder) => {
   return axios.post(URL_BACKEND, formData, config);
 };
 
-const fetchAllUsersAPI = () => {
-  const URL_BACKEND = "/api/v1/user";
+const fetchAllUsersAPI = (currentPage, pageSize) => {
+  const URL_BACKEND = `/api/v1/user?current=${currentPage}&pageSize=${pageSize}`;
   return axios.get(URL_BACKEND);
 };
 
