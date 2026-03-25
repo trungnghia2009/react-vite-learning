@@ -48,10 +48,22 @@ const fetchAllUsersAPI = (currentPage, pageSize) => {
   return axios.get(URL_BACKEND);
 };
 
+const registerUserAPI = (fullName, email, password, phone) => {
+  const URL_BACKEND = "/api/v1/user/register";
+  const userData = {
+    fullName,
+    email,
+    password,
+    phone,
+  };
+  return axios.post(URL_BACKEND, userData);
+};
+
 export {
   createUserAPI,
   fetchAllUsersAPI,
   updateUserAPI,
   deleteUserAPI,
   uploadAvatarAPI,
+  registerUserAPI,
 };
