@@ -12,6 +12,7 @@ const App = () => {
 
   useEffect(() => {
     fetchUserInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

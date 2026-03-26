@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { Menu } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, message, Popconfirm } from "antd";
 import {
   UsergroupAddOutlined,
   HomeOutlined,
@@ -9,15 +9,31 @@ import {
 } from "@ant-design/icons";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
+import { logoutUserAPI } from "../../services/api.service";
 
 const Header = () => {
   const [current, setCurrent] = useState("mail");
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const onClick = (e) => {
     console.log("click ", e);
     setCurrent(e.key);
   };
+
+  const onLogout = async () => {
+    console.log("Logging out...");
+    const res = await logoutUserAPI();
+    if (res.data) {
+      localStorage.removeItem("access_token"); // Remove token from localStorage
+      setUser({}); // Clear user context
+      navigate("/"); // Redirect to home page after logout
+      message.success("Logout successful!");
+    } else {
+      console.error("Logout failed:", res.message);
+    }
+  };
+
   const items = [
     {
       label: <Link to="/">Home</Link>,
@@ -55,7 +71,19 @@ const Header = () => {
             icon: <AliwangwangOutlined />,
             children: [
               {
-                label: "Logout",
+                label: (
+                  <Popconfirm
+                    title="Logout"
+                    description="Are you sure you want to logout?"
+                    onConfirm={onLogout}
+                    onCancel={() => {}}
+                    okText="Yes"
+                    cancelText="No"
+                    placement="right"
+                  >
+                    <span>Logout</span>
+                  </Popconfirm>
+                ),
                 key: "logout",
               },
             ],
