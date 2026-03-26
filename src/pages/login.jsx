@@ -29,7 +29,7 @@ const LoginPage = () => {
     if (res.data) {
       message.success("Login successful!");
       form.resetFields();
-      localStorage.setItem("access_token", res.data.token); // Store token in localStorage
+      localStorage.setItem("access_token", res.data.access_token); // Store token in localStorage
       setUser(res.data.user); // Update user context
       navigate("/"); // Redirect to home page after successful login
     } else {
@@ -51,8 +51,8 @@ const LoginPage = () => {
             borderRadius: "5px",
           }}
         >
-          <legend style={{ textAlign: "center", fontSize: "1.5em" }}>
-            Login to your account
+          <legend style={{ textAlign: "left", fontSize: "1.5em" }}>
+            Login
           </legend>
           <Form form={form} layout="vertical" name="basic" onFinish={onFinish}>
             <Form.Item

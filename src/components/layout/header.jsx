@@ -14,8 +14,6 @@ const Header = () => {
   const [current, setCurrent] = useState("mail");
   const { user } = useContext(AuthContext);
 
-  console.log("user in header: ", user);
-
   const onClick = (e) => {
     console.log("click ", e);
     setCurrent(e.key);
