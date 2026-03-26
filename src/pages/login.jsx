@@ -11,12 +11,15 @@ import {
 } from "antd";
 import { Link } from "react-router-dom";
 import { loginUserAPI } from "../services/api.service";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../components/context/auth.context";
 
 const LoginPage = () => {
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
@@ -26,6 +29,8 @@ const LoginPage = () => {
     if (res.data) {
       message.success("Login successful!");
       form.resetFields();
+      localStorage.setItem("access_token", res.data.token); // Store token in localStorage
+      setUser(res.data.user); // Update user context
       navigate("/"); // Redirect to home page after successful login
     } else {
       notification.error({
