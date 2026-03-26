@@ -1,10 +1,11 @@
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import {
   UsergroupAddOutlined,
   HomeOutlined,
   BookOutlined,
-  SettingOutlined,
+  LoginOutlined,
+  AliwangwangOutlined,
 } from "@ant-design/icons";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
@@ -21,35 +22,48 @@ const Header = () => {
   };
   const items = [
     {
-      label: <NavLink to="/">Home</NavLink>,
+      label: <Link to="/">Home</Link>,
       key: "home",
       icon: <HomeOutlined />,
     },
     {
-      label: <NavLink to="/users">Users</NavLink>,
+      label: <Link to="/users">Users</Link>,
       key: "users",
       icon: <UsergroupAddOutlined />,
     },
     {
-      label: <NavLink to="/books">Books</NavLink>,
+      label: <Link to="/books">Books</Link>,
       key: "books",
       icon: <BookOutlined />,
     },
-    {
-      label: "Settings",
-      key: "settings",
-      icon: <SettingOutlined />,
-      children: [
-        {
-          label: <Link to="/login">Login</Link>,
-          key: "login",
-        },
-        {
-          label: "Logout",
-          key: "logout",
-        },
-      ],
-    },
+
+    // Show login link only if user is not logged in
+    /// ... means spread operator, used to conditionally add the login menu item if user is not logged in
+    ...(!user.id
+      ? [
+          {
+            label: <Link to="/login">Login</Link>,
+            key: "login",
+            icon: <LoginOutlined />,
+          },
+        ]
+      : []),
+
+    ...(user.id
+      ? [
+          {
+            label: `Welcome, ${user.fullName}`,
+            key: "settings",
+            icon: <AliwangwangOutlined />,
+            children: [
+              {
+                label: "Logout",
+                key: "logout",
+              },
+            ],
+          },
+        ]
+      : []),
   ];
 
   return (

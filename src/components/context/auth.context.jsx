@@ -9,7 +9,7 @@ export const AuthContext = createContext({
   id: "",
 });
 
-export const AuthWrapper = ({ children }) => {
+export const AuthWrapper = (props) => {
   const [user, setUser] = useState({
     email: "",
     phone: "",
@@ -21,7 +21,7 @@ export const AuthWrapper = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      {children}
+      {props.children}
     </AuthContext.Provider>
   );
 };
