@@ -79,6 +79,17 @@ const logoutUserAPI = () => {
   return axios.post(URL_BACKEND);
 };
 
+// Books
+const fetchAllBooksAPI = (currentPage, pageSize) => {
+  const URL_BACKEND = `/api/v1/book?current=${currentPage}&pageSize=${pageSize}`;
+  return axios.get(URL_BACKEND);
+};
+
+const deleteBookAPI = (_id) => {
+  const URL_BACKEND = `/api/v1/book/${_id}`;
+  return axios.delete(URL_BACKEND);
+};
+
 export {
   createUserAPI,
   fetchAllUsersAPI,
@@ -89,4 +100,6 @@ export {
   loginUserAPI,
   getAccountInfoAPI,
   logoutUserAPI,
+  fetchAllBooksAPI,
+  deleteBookAPI,
 };
