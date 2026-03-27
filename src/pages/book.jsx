@@ -17,7 +17,6 @@ const BookPage = () => {
   const loadBook = async () => {
     const res = await fetchAllBooksAPI(currentPage, pageSize);
     if (res.data) {
-      console.log("Book data:", res.data);
       let data = res.data;
       setBookData(data.result);
       setCurrentPage(data.meta.current);

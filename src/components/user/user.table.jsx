@@ -1,6 +1,6 @@
 import { Table, Popconfirm, notification } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import UpdateUser from "./update.user";
+import UserUpdate from "./user.update";
 import UserInfo from "./user.info";
 import { useState } from "react";
 import { deleteUserAPI } from "../../services/api.service";
@@ -134,7 +134,7 @@ const UserTable = (props) => {
         }}
         onChange={onPageChange}
       />
-      <UpdateUser
+      <UserUpdate
         isModalUpdateOpen={isModalUpdateOpen}
         setIsModalUpdateOpen={setIsModalUpdateOpen}
         dataUpdate={dataUpdate}

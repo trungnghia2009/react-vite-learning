@@ -58,6 +58,7 @@ const BookForm = (props) => {
   };
 
   const handlePreviewThumbnail = (event) => {
+    console.log("handlePreviewThumbnail called");
     // Check if a file was selected
     if (!event.target.files || event.target.files.length === 0) {
       setThumbnail("");
@@ -123,7 +124,7 @@ const BookForm = (props) => {
             <span>Price</span>
             <InputNumber
               value={price}
-              suffix="đ"
+              addonAfter="đ"
               style={{ width: "100%" }}
               onChange={(value) => setPrice(value)}
               placeholder="Input Price"

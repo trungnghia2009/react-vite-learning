@@ -3,6 +3,7 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { deleteBookAPI } from "../../services/api.service";
 import { useState } from "react";
 import BookInfo from "./book.info";
+import BookUpdate from "./book.update";
 
 const BookTable = (props) => {
   const {
@@ -18,6 +19,9 @@ const BookTable = (props) => {
   // State for Book Info Drawer
   const [openDrawer, setOpenDrawer] = useState(false);
   const [bookInfo, setBookInfo] = useState(null);
+
+  // State for Update Book Modal
+  const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
   const handleDeleteBook = async (_id) => {
     const res = await deleteBookAPI(_id);
@@ -92,10 +96,10 @@ const BookTable = (props) => {
       render: (_, record) => (
         <div style={{ display: "flex", gap: "20px" }}>
           <EditOutlined
-            // onClick={() => {
-            //   setDataUpdate(record);
-            //   setIsModalUpdateOpen(true);
-            // }}
+            onClick={() => {
+              setBookInfo(record);
+              setIsModalUpdateOpen(true);
+            }}
             style={{ cursor: "pointer", color: "orange", fontSize: "16px" }}
           />
           <Popconfirm
@@ -140,6 +144,13 @@ const BookTable = (props) => {
         bookInfo={bookInfo}
         openDrawer={openDrawer}
         setOpenDrawer={setOpenDrawer}
+      />
+      <BookUpdate
+        isModalUpdateOpen={isModalUpdateOpen}
+        setIsModalUpdateOpen={setIsModalUpdateOpen}
+        bookInfo={bookInfo}
+        setBookInfo={setBookInfo}
+        loadBook={loadBook}
       />
     </>
   );
