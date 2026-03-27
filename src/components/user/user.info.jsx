@@ -1,6 +1,6 @@
 import { Drawer, Button, notification } from "antd";
 import { useState } from "react";
-import { uploadAvatarAPI, updateUserAPI } from "../../services/api.service";
+import { uploadImageAPI, updateUserAPI } from "../../services/api.service";
 
 const UserInfo = (props) => {
   const { userInfo, setOpenDrawer, openDrawer, loadUser } = props;
@@ -31,7 +31,7 @@ const UserInfo = (props) => {
 
   const handleUploadAvatar = async () => {
     // Step 1: upload file
-    const resUpload = await uploadAvatarAPI(selectedFile, "avatar");
+    const resUpload = await uploadImageAPI(selectedFile, "avatar");
     if (resUpload.data) {
       const newAvatar = resUpload.data.fileUploaded;
       // Step 2: update user with new avatar
@@ -114,6 +114,9 @@ const UserInfo = (props) => {
               hidden
               id="upload-btn"
               onChange={handlePreviewAvatar}
+              onClick={(event) => {
+                event.target.value = null;
+              }}
             />
           </div>
           {/* Preview of the uploaded avatar */}

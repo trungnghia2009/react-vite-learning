@@ -27,7 +27,7 @@ const deleteUserAPI = (_id) => {
   return axios.delete(URL_BACKEND);
 };
 
-const uploadAvatarAPI = (file, folder) => {
+const uploadImageAPI = (file, folder) => {
   const URL_BACKEND = "/api/v1/file/upload";
 
   let config = {
@@ -85,6 +85,26 @@ const fetchAllBooksAPI = (currentPage, pageSize) => {
   return axios.get(URL_BACKEND);
 };
 
+const createBookAPI = (
+  mainText,
+  author,
+  price,
+  quantity,
+  category,
+  thumbnail,
+) => {
+  const URL_BACKEND = "/api/v1/book";
+  const bookData = {
+    mainText,
+    author,
+    price,
+    quantity,
+    category,
+    thumbnail,
+  };
+  return axios.post(URL_BACKEND, bookData);
+};
+
 const deleteBookAPI = (_id) => {
   const URL_BACKEND = `/api/v1/book/${_id}`;
   return axios.delete(URL_BACKEND);
@@ -95,11 +115,12 @@ export {
   fetchAllUsersAPI,
   updateUserAPI,
   deleteUserAPI,
-  uploadAvatarAPI,
+  uploadImageAPI,
   registerUserAPI,
   loginUserAPI,
   getAccountInfoAPI,
   logoutUserAPI,
   fetchAllBooksAPI,
   deleteBookAPI,
+  createBookAPI,
 };
