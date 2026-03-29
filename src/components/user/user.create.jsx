@@ -2,7 +2,7 @@ import { Input, Button, Modal, notification } from "antd";
 import { useState } from "react";
 import { createUserAPI } from "../../services/api.service";
 
-const UserForm = (props) => {
+const UserCreate = (props) => {
   const { loadUser } = props;
 
   const [fullName, setFullName] = useState("");
@@ -95,4 +95,4 @@ const UserForm = (props) => {
   );
 };
 
-export default UserForm;
+export default UserCreate;

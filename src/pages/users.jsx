@@ -1,5 +1,5 @@
 import UserTable from "../components/user/user.table";
-import UserForm from "../components/user/user.form";
+import UserCreate from "../components/user/user.create";
 import { fetchAllUsersAPI } from "../services/api.service";
 import { useEffect, useState } from "react";
 
@@ -28,7 +28,7 @@ const UsersPage = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <UserForm loadUser={loadUser} />
+      <UserCreate loadUser={loadUser} />
       <UserTable
         userData={userData}
         loadUser={loadUser}

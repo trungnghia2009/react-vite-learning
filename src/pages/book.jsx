@@ -1,4 +1,4 @@
-import BookForm from "../components/book/book.form";
+import BookCreate from "../components/book/book.create";
 import BookTable from "../components/book/book.table";
 import { useEffect, useState } from "react";
 import { fetchAllBooksAPI } from "../services/api.service";
@@ -27,7 +27,7 @@ const BookPage = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <BookForm loadBook={loadBook} />
+      <BookCreate loadBook={loadBook} />
       <BookTable
         bookData={bookData}
         loadBook={loadBook}

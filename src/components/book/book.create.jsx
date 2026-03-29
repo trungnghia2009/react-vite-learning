@@ -2,7 +2,7 @@ import { Input, Button, Modal, notification, InputNumber, Select } from "antd";
 import { useState } from "react";
 import { createBookAPI, uploadImageAPI } from "../../services/api.service";
 
-const BookForm = (props) => {
+const BookCreate = (props) => {
   const { loadBook } = props;
 
   const [title, setTitle] = useState("");
@@ -210,4 +210,4 @@ const BookForm = (props) => {
   );
 };
 
-export default BookForm;
+export default BookCreate;

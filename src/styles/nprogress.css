@@ -1,0 +1,15 @@
+/* NProgress Bar - orange Color */
+#nprogress .bar {
+  background: orange;
+}
+
+#nprogress .peg {
+  box-shadow:
+    0 0 10px orange,
+    0 0 5px orange;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: orange;
+  border-left-color: orange;
+}
