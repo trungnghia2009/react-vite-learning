@@ -14,6 +14,7 @@ const BookTable = (props) => {
     pageSize,
     setPageSize,
     total,
+    isLoadingTable,
   } = props;
 
   // State for Book Info Drawer
@@ -139,6 +140,7 @@ const BookTable = (props) => {
           },
         }}
         onChange={onPageChange}
+        loading={isLoadingTable}
       />
       <BookInfo
         bookInfo={bookInfo}

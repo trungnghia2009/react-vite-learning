@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, message, Popconfirm } from "antd";
 import {
   UsergroupAddOutlined,
@@ -7,7 +7,7 @@ import {
   LoginOutlined,
   AliwangwangOutlined,
 } from "@ant-design/icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import { logoutUserAPI } from "../../services/api.service";
 
@@ -15,6 +15,19 @@ const Header = () => {
   const [current, setCurrent] = useState("mail");
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Update current menu item based on the current path
+    const path = location.pathname;
+    if (path === "/") {
+      setCurrent("home");
+    } else if (path === "/users") {
+      setCurrent("users");
+    } else {
+      setCurrent("books");
+    }
+  }, [location]);
 
   const onClick = (e) => {
     console.log("click ", e);

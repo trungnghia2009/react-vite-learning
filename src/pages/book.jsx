@@ -9,12 +9,16 @@ const BookPage = () => {
   const [pageSize, setPageSize] = useState(5);
   const [total, setTotal] = useState(0);
 
+  // State for loading state of the table
+  const [isLoadingTable, setIsLoadingTable] = useState(false);
+
   useEffect(() => {
     loadBook();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, pageSize]);
 
   const loadBook = async () => {
+    setIsLoadingTable(true);
     const res = await fetchAllBooksAPI(currentPage, pageSize);
     if (res.data) {
       let data = res.data;
@@ -23,6 +27,7 @@ const BookPage = () => {
       setPageSize(data.meta.pageSize);
       setTotal(data.meta.total);
     }
+    setIsLoadingTable(false);
   };
 
   return (
@@ -36,6 +41,7 @@ const BookPage = () => {
         pageSize={pageSize}
         setPageSize={setPageSize}
         total={total}
+        isLoadingTable={isLoadingTable}
       />
     </div>
   );

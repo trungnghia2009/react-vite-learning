@@ -19,7 +19,7 @@ const App = () => {
 
   const fetchUserInfo = async () => {
     const res = await getAccountInfoAPI();
-    await delay(300); // Simulate network delay
+    await delay(300); // Simulate network delay`
     if (res.data) {
       setUser(res.data.user);
     }
