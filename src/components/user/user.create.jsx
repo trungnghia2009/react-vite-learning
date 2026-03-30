@@ -1,9 +1,10 @@
-import { Input, Button, Modal, notification } from "antd";
+import { Input, Button, Modal, App } from "antd";
 import { useState } from "react";
 import { createUserAPI } from "../../services/api.service";
 
 const UserCreate = (props) => {
   const { loadUser } = props;
+  const { notification } = App.useApp();
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");

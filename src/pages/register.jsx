@@ -1,9 +1,10 @@
-import { Button, Input, Form, notification, Row, Col, Divider } from "antd";
+import { Button, Input, Form, App, Row, Col, Divider } from "antd";
 import { registerUserAPI } from "../services/api.service";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const [form] = Form.useForm();
+  const { notification } = App.useApp();
   const navigate = useNavigate();
 
   const onFinish = async (values) => {

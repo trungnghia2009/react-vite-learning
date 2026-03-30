@@ -1,14 +1,5 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Form,
-  Input,
-  Row,
-  Col,
-  Divider,
-  notification,
-  message,
-} from "antd";
+import { Button, Form, Input, Row, Col, Divider, App } from "antd";
 import { Link } from "react-router-dom";
 import { loginUserAPI } from "../services/api.service";
 import { useState, useContext } from "react";
@@ -21,6 +12,7 @@ const LoginPage = () => {
   const { setUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
+  const { message, notification } = App.useApp();
 
   const onFinish = async (values) => {
     setIsLoading(true);

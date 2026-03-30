@@ -1,4 +1,4 @@
-import { Table, Popconfirm, notification } from "antd";
+import { Table, Popconfirm, App } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import UserUpdate from "./user.update";
 import UserInfo from "./user.info";
@@ -15,6 +15,8 @@ const UserTable = (props) => {
     setPageSize,
     total,
   } = props;
+
+  const { notification } = App.useApp();
 
   // State for Update User Modal
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);

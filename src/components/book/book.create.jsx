@@ -1,9 +1,10 @@
-import { Input, Button, Modal, notification, InputNumber, Select } from "antd";
+import { Input, Button, Modal, InputNumber, Select, App } from "antd";
 import { useState } from "react";
 import { createBookAPI, uploadImageAPI } from "../../services/api.service";
 
 const BookCreate = (props) => {
   const { loadBook } = props;
+  const { notification } = App.useApp();
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");

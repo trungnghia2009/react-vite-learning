@@ -1,4 +1,4 @@
-import { Table, Popconfirm, notification } from "antd";
+import { Table, Popconfirm, App } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { deleteBookAPI } from "../../services/api.service";
 import { useState } from "react";
@@ -16,6 +16,8 @@ const BookTable = (props) => {
     total,
     isLoadingTable,
   } = props;
+
+  const { notification } = App.useApp();
 
   // State for Book Info Drawer
   const [openDrawer, setOpenDrawer] = useState(false);

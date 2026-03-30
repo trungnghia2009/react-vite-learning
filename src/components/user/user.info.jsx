@@ -1,9 +1,10 @@
-import { Drawer, Button, notification } from "antd";
+import { Drawer, Button, App } from "antd";
 import { useState } from "react";
 import { uploadImageAPI, updateUserAPI } from "../../services/api.service";
 
 const UserInfo = (props) => {
   const { userInfo, setOpenDrawer, openDrawer, loadUser } = props;
+  const { notification } = App.useApp();
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);

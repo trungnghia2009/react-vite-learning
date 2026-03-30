@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import { App as AppAntd } from "antd";
 import "./styles/global.css";
 import "nprogress/nprogress.css";
 
@@ -50,7 +51,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <AuthWrapper>
-    <RouterProvider router={router} />
+    <AppAntd>
+      <RouterProvider router={router} />
+    </AppAntd>
   </AuthWrapper>,
   // </React.StrictMode>,
 );

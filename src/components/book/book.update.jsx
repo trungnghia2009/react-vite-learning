@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Input, Modal, notification, Form, InputNumber, Select } from "antd";
+import { Input, Modal, App, Form, InputNumber, Select } from "antd";
 import { updateBookAPI, uploadImageAPI } from "../../services/api.service";
 
 const BookUpdate = (props) => {
@@ -12,6 +12,7 @@ const BookUpdate = (props) => {
   } = props;
 
   const [form] = Form.useForm();
+  const { notification } = App.useApp();
 
   const [thumbnail, setThumbnail] = useState(null);
   const [preview, setPreview] = useState(null);
